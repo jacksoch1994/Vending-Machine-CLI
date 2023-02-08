@@ -2,6 +2,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -62,6 +63,14 @@ public class Inventory {
             System.out.println("Source file not found.");
         }
 
+    }
+
+    private BigDecimal purchase(String slotNumber) {
+        if (inventory.containsKey(slotNumber)) {
+            return inventory.get(slotNumber).vend();
+        } else {
+            return null;
+        }
     }
 
     /*
