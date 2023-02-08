@@ -66,14 +66,20 @@ public class Slot {
 
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s|%s|%s|%s|%s", getSlotNumber(), getProductName()
+        , getPrice(), getType(), getQuantity());
+    }
+
     /*
     ########################################   Constructor   ##########################################
      */
 
-    public Slot(String slotNumber, String productName, BigDecimal price, String type, int quantity) {
+    public Slot(String slotNumber, String productName, String price, String type, int quantity) {
         this.slotNumber = slotNumber;
         this.productName = productName;
-        this.price = price;
+        this.price = new BigDecimal(price);
         this.type = type;
         this.quantity = quantity;
     }
