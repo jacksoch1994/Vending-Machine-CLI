@@ -51,13 +51,12 @@ public class Inventory {
                 String entry = dataInput.nextLine();
                 String[] splitEntry = entry.split("\\|");
                 Slot newSlot = new Slot(
-                        splitEntry[SOURCE_FILE_SLOT_NUMBER_INDEX],
                         splitEntry[SOURCE_FILE_PRODUCT_NAME_INDEX],
-                        splitEntry[SOURCE_FILE_PRODUCT_PRICE_INDEX],
+                        new BigDecimal(splitEntry[SOURCE_FILE_PRODUCT_PRICE_INDEX]),
                         splitEntry[SOURCE_FILE_PRODUCT_TYPE_INDEX],
                         SLOT_CAPACITY
                 );
-                inventory.put(newSlot.getSlotNumber(), newSlot);
+                inventory.put( splitEntry[SOURCE_FILE_SLOT_NUMBER_INDEX], newSlot);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Source file not found.");

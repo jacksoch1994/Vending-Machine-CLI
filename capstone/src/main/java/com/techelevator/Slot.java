@@ -8,7 +8,6 @@ public class Slot {
     ########################################   Attributes   ##########################################
      */
 
-    private String slotNumber;
     private String productName;
     private BigDecimal price;
     private String type;
@@ -18,9 +17,6 @@ public class Slot {
     ######################################## Getter Methods ##########################################
      */
 
-    public String getSlotNumber() {
-        return slotNumber;
-    }
 
     public String getProductName() {
         return productName;
@@ -68,7 +64,7 @@ public class Slot {
 
     @Override
     public String toString() {
-        return String.format("%s|%s|%s|%s|%s", getSlotNumber(), getProductName()
+        return String.format("%s|%s|%s|%s", getProductName()
         , getPrice(), getType(), getQuantity());
     }
 
@@ -76,10 +72,9 @@ public class Slot {
     ########################################   Constructor   ##########################################
      */
 
-    public Slot(String slotNumber, String productName, String price, String type, int quantity) {
-        this.slotNumber = slotNumber;
+    public Slot(String productName, BigDecimal price, String type, int quantity) {
         this.productName = productName;
-        this.price = new BigDecimal(price);
+        this.price = price;
         this.type = type;
         this.quantity = quantity;
     }
