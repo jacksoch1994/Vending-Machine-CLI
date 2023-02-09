@@ -27,7 +27,8 @@ public class UserInterface {
      *
      * @return user input as a String.
      */
-    public String getString() {
+    public String getString(String prompt) {
+        System.out.print(prompt);
         return userInput.nextLine();
     }
 

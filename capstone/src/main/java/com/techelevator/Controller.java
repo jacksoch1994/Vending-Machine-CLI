@@ -64,7 +64,16 @@ public class Controller {
     }
 
     private void purchaseProductMenu() {
-        console.display("");
+
+        console.display(inventory.toString());
+        String input = console.getString("Please select a product: ");
+        if (inventory.isValidSlotNumber(input)) {
+
+        } else {
+            console.display("Invalid selection. Returning to previous menu.");
+        }
+
+
     }
 
     private void shutDown() {

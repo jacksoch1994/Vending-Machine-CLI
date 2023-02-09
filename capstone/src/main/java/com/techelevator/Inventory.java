@@ -63,9 +63,8 @@ public class Inventory {
         } catch (FileNotFoundException e) {
             System.out.println("Source file not found.");
         }
-
     }
-
+    
     /**
      * Returns a boolean value indicating if there are any products remaining in the Slot.
      *
