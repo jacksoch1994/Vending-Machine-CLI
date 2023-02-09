@@ -5,16 +5,32 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Logger writes transaction information to a Log file. Erases the previous log file when instantiated.
+ */
 public class Logger {
 
+    /*
+    ####################################### Constant Values ##########################################
+     */
+
+    //File representation of the Log text file.
     final private File LOG_FILE = new File("Log.txt");
 
-    public Logger() {
-        if (LOG_FILE.exists()) {
-            LOG_FILE.delete();
-        }
-    }
 
+    /*
+    ########################################    Methods    ###########################################
+     */
+
+    /**
+     * Writes an entry to the LOG_FILE containing transaction information. All entries are preceded with the time that
+     * the transaction was recorded. Entries are formatted as: [Date] [Time] [Operation] [moneyTendered]
+     * [currentBalance]
+     *
+     * @param operation the description of the transaction that was performed as a String
+     * @param moneyTendered the amount of money involved in the transaction as a BigDecimal.
+     * @param currentBalance the amount of money in the current balance at the time of the transaction as a BigDecimal
+     */
     public void logTransaction(String operation, BigDecimal moneyTendered,
                                BigDecimal currentBalance) {
         try (final FileOutputStream out = new FileOutputStream(LOG_FILE, true);
@@ -26,6 +42,21 @@ public class Logger {
             writer.printf("%s %s: $%.2f $%.2f\n", formattedDateTime, operation, moneyTendered, currentBalance);
         } catch (IOException e) {
             System.out.println("File not found");
+        }
+    }
+
+    /*
+    ########################################   Constructor   ##########################################
+     */
+
+    /**
+     * Creates a new Slot object. Deletes the log file if it already exists.
+     *
+     * @return instance of the Logger class.
+     */
+    public Logger() {
+        if (LOG_FILE.exists()) {
+            LOG_FILE.delete();
         }
     }
 }

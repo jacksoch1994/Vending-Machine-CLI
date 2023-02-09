@@ -2,6 +2,10 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
+/**
+ * Representation of a Vending Machine slot that holds product. Provides methods that allow the user to obtain product
+ * information and decrement the value of remaining product.
+ */
 public class Slot {
 
     /*

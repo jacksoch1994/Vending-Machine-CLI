@@ -8,7 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
-
+/**
+ * Representation of a Vending Machine inventory consisting of the machine's slots. Reads from an input file to
+ * create initial inventory upon instantiation. Provides methods that allow the user to provide a slot number and
+ * access/manipulate the values of slots at those locations.
+ */
 public class Inventory {
 
 

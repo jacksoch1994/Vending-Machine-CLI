@@ -2,11 +2,16 @@ package com.techelevator;
 
 import java.util.Scanner;
 
+/**
+ * UserInterface provides methods for displaying information to the console and returning valid input from the user.
+ * Contain methods that will force the user to continue providing inputs until a valid input is recieved.
+ */
 public class UserInterface {
 
     /*
     ########################################   Attributes   ##########################################
      */
+
     private Scanner userInput = new Scanner(System.in);
 
     /*
@@ -33,6 +38,13 @@ public class UserInterface {
     }
 
 
+    /**
+     * Displays the provided prompt to the user, and obtains the next line of user input. If the user input is not a
+     * positive integer value, displays an error message and re-displays the prompt until a valid value is provided.
+     *
+     * @param prompt the prompt to display to the user before processing input
+     * @return user input as an int.
+     */
     public int getPositiveInteger(String prompt) {
         while (true) {
             String userValue = userInput.nextLine();
@@ -46,6 +58,16 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Displays the provided header, and then the contents of a String Array containing menu prompts, numbering them
+     * starting from 1, After displaying these values, obtains the user input. If the provided value is not a valid
+     * integer, or does not match the number of an option, displays an error message and re-displays the prompt until a
+     * valid value is provided. The method will not display the header if provided an empty String.
+     *
+     * @param options a String[] containing each option that the user can select
+     * @param header the header to print before the presented user options
+     * @return user input as an int.
+     */
     public int getMenuSelection(String[] options, String header) {
         while (true) {
 
@@ -76,6 +98,14 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Displays the contents of a String Array containing menu prompts, numbering them starting from 1, After displaying
+     * these values, obtains the user input. If the provided value is not a valid integer, or does not match the number
+     * of an option, displays an error message and re-displays the prompt until a valid value is provided.
+     *
+     * @param options a String[] containing each option that the user can select
+     * @return user input as an int.
+     */
     public int getMenuSelection(String[] options) {
         return this.getMenuSelection(options, "");
     }
@@ -85,7 +115,13 @@ public class UserInterface {
     }
 
 
-    //	Tests to see if String can be converted by Integer.parseInt()
+    /**
+     * Takes in a String value and determines if it can be converted into an Integer using the Integer.parseInt()
+     * method.
+     *
+     * @param input the String to evaluate
+     * @return true if the provided String can be parsed as an Integer, false otherwise
+     */
     public static boolean isValidIntegerInput(String input) {
         //	Tries to convert the provided string to an integer value. If an invalid input is provided, catches the exception and returns false.
         try {
@@ -95,8 +131,4 @@ public class UserInterface {
         }
         return true;
     }
-
-    /*
-    ########################################   Constructor   ##########################################
-     */
 }

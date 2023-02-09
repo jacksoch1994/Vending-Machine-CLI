@@ -1,7 +1,10 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
-
+/**
+ * MoneyHandler keeps track of the Vending Machine's current balance and the total sales revenue that has been accrued
+ * over all successful transactions made since the Vending Machine was run.
+ */
 public class MoneyHandler {
 
     /*

@@ -6,18 +6,39 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class LoggerTest {
 
 
     @Test
-    public void logger_should_append_transactions() {
+    public void logger_should_record_transactions_to_output_file() {
+        Logger logger = new Logger();
+        logger.logTransaction("FEED MONEY", new BigDecimal("5.00"), new BigDecimal("2.00"));
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
+        String formattedDateTime = dateTime.format(myFormat);
+
+        String expected = formattedDateTime + " FEED MONEY: $5.00 $2.00\n";
+        String actual = helper();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void logger_should_append_transactions_to_existing_transactions() {
         Logger logger = new Logger();
         logger.logTransaction("FEED MONEY", new BigDecimal("5.00"), new BigDecimal("2.00"));
         logger.logTransaction("FEED MONEY", new BigDecimal("5.00"), new BigDecimal("2.00"));
-        String expected = "02/09/2023 12:00:25 PM FEED MONEY: $5.00 $2.00\n" +
-        "02/09/2023 12:00:25 PM FEED MONEY: $5.00 $2.00\n";
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
+        String formattedDateTime = dateTime.format(myFormat);
+
+        String expected = formattedDateTime + " FEED MONEY: $5.00 $2.00\n";
+        expected = expected + expected;
         String actual = helper();
         Assert.assertEquals(expected, actual);
     }
