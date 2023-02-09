@@ -27,13 +27,25 @@ public class MoneyHandler {
     ########################################  Other Methods  ##########################################
      */
 
+    /**
+     * Adds money to the current balance in whole dollar amounts.
+     *
+     * @param dollars the number of dollars to add to the current balance, as an int.
+     */
     public void feed(int dollars) {
         if (dollars > 0) {
             this.wallet = this.wallet.add(new BigDecimal(dollars));
         }
     }
 
-
+    /**
+     * Updates the current balance by the monetary amount provided and returns true if successful. If the
+     * operation is successful, also updates the total revenue accrued by the amount of the purchased object. If the
+     * amount provided is more than the amount in the current balance, the operation fails and the method returns false.
+     *
+     * @param amount the monetary amount of the purchase in BigDecimal format
+     * @return true if the operation could be completed, false otherwise
+     */
     public boolean spend(BigDecimal amount) {
         //compareTo returns a negative value if the first BigDecimal has a value less than the second. Is zero if same
         if (amount.compareTo(this.wallet) <= 0) {
@@ -45,6 +57,12 @@ public class MoneyHandler {
     }
 
 
+    /**
+     * Returns a string representation of the current balance in the form of Quarters, Dimes, anc Nickels. Resets the
+     * current balance to zero when called.
+     *
+     * @return String representation of the change. Returns an empty string if the current balance is zero.
+     */
     public String getChange() {
         int changeInCents = this.wallet.multiply(new BigDecimal("100")).intValue();
         this.wallet = new BigDecimal(0);
@@ -61,7 +79,6 @@ public class MoneyHandler {
                 quarterOutput, dimesOutput, nickelsOutput);
 
         return change;
-
-
     }
+
 }

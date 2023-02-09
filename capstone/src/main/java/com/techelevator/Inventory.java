@@ -39,14 +39,14 @@ public class Inventory {
         return inventory;
     }
 
-    /*
-    ######################################## Setter Methods ##########################################
-     */
 
     /*
     ########################################  Other Methods  ##########################################
      */
 
+    /**
+     * Reads from the STOCK_SOURCE_FILE and populates the inventory with Slot objects.
+     */
     private void stockInventory() {
         try (Scanner dataInput = new Scanner(STOCK_SOURCE_FILE)) {
             while (dataInput.hasNextLine()) {
@@ -66,14 +66,36 @@ public class Inventory {
 
     }
 
+    /**
+     * Returns a boolean value indicating if there are any products remaining in the Slot.
+     *
+     * @param slotNumber The slot number of the item to purchase from as a String.
+     * @return the price of the purchased item as a BigDecimal. Returns a BigDecimal with a value of 0 if the product
+     * cannot be purchased.
+     */
     public BigDecimal purchase(String slotNumber) {
         if (inventory.containsKey(slotNumber)) {
             return inventory.get(slotNumber).vend();
         } else {
-            return new BigDecimal(0);
+            return BigDecimal.ZERO;
         }
     }
 
+    /**
+     * Returns a boolean indicating if the specified slot number exists in Inventory.
+     *
+     * @param slotNumber the slot number to check for validity
+     * @return true if the slot number exists in inventory, false if not
+     */
+    public boolean isValidSlotNumber(String slotNumber) {
+        return inventory.containsKey(slotNumber);
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return String representation of the instance of Inventory.
+     */
     @Override
     public String toString() {
         //StringBuilder to append to for output

@@ -48,9 +48,9 @@ public class Slot {
     }
 
     /**
-     * TBD
+     * Decrements the amount of product in stock by 1 if the product quantity is greater than 0.
      *
-     * @return TBD
+     * @return price of the vended item. Returns 0 if product quantity is 0.
      */
     public BigDecimal vend() {
         if (hasProductInStock()) {
@@ -62,6 +62,11 @@ public class Slot {
 
     }
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return String representation of the instance of Slot.
+     */
     @Override
     public String toString() {
         return String.format("%s|%s|%s|%s", getProductName()
@@ -72,6 +77,15 @@ public class Slot {
     ########################################   Constructor   ##########################################
      */
 
+    /**
+     * Creates a new Slot object.
+     *
+     * @param productName The name of the product contained in the Slot.
+     * @param price The price of 1 unit of the product in the Slot.
+     * @param type The type of product in the Slot.
+     * @param quantity The starting quantity of product in the Slot.
+     * @return instance of the Slot class.
+     */
     public Slot(String productName, BigDecimal price, String type, int quantity) {
         this.productName = productName;
         this.price = price;
