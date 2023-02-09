@@ -47,6 +47,7 @@ public class UserInterface {
      */
     public int getPositiveInteger(String prompt) {
         while (true) {
+            System.out.println(prompt);
             String userValue = userInput.nextLine();
             if (isValidIntegerInput(userValue) && Integer.parseInt(userValue) >= 0) {
                 banner();
@@ -54,7 +55,7 @@ public class UserInterface {
 
             }
 
-            System.out.println("\nInvalid selection. Please try again.\n");
+            System.out.println("\nInvalid input. Please provide a positive integer value.\n");
         }
     }
 

@@ -39,7 +39,7 @@ public class Logger {
             LocalDateTime dateTime = LocalDateTime.now();
             DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
             String formattedDateTime = dateTime.format(myFormat);
-            writer.printf("%s %s: $%.2f $%.2f\n", formattedDateTime, operation, moneyTendered, currentBalance);
+            writer.printf("%s %s $%.2f $%.2f\n", formattedDateTime, operation, moneyTendered, currentBalance);
         } catch (IOException e) {
             System.out.println("File not found");
         }

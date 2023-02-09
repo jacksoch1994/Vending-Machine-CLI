@@ -1,5 +1,8 @@
 package com.techelevator;
 
+import java.io.FileOutputStream;
+import java.math.BigDecimal;
+
 /**
  * Controller contains the logic for displaying menus, processing user input, handling transactions, and recording
  * transaction information by incorporating the Inventory, Logger, MoneyHandler, and UserInterface classes.
@@ -60,6 +63,7 @@ public class Controller {
         }
     }
 
+
     /**
      * Displays and operates the purchasing menu of the Vending Machine. Routes user to different options based on the
      * selection provided.
@@ -72,16 +76,19 @@ public class Controller {
         outer:
         while (true) {
 
-            String balance = String.format("Current Money Provided: $%.2f", moneyHandler.getWallet());
+            String balance = String.format("Available Funds: $%.2f", moneyHandler.getWallet());
 
             switch (console.getMenuSelection(options, balance)) {
                 case FIRST_OPTION:
                     feedMoneyMenu();
                     break;
                 case SECOND_OPTION:
-                    purchaseProductMenu();
+                    productSelectionMenu();
                     break;
                 case THIRD_OPTION:
+                    BigDecimal change = moneyHandler.getWallet();
+                    console.display(moneyHandler.getChange());
+                    logger.logTransaction("GIVE CHANGE:", change, moneyHandler.getWallet());
                     break outer;
             }
         }
@@ -93,13 +100,14 @@ public class Controller {
      * to add to the current balance, or zero in order to return to the previous menu without changing the balance.
      */
     private void feedMoneyMenu() {
-        moneyHandler.feed(console.getPositiveInteger("Enter a whole number dollar amount to add to current " +
+        BigDecimal money = moneyHandler.feed(console.getPositiveInteger("Enter a whole number dollar amount to add to current " +
                 "balance, or \"0\" to return to the previous menu: "));
+        logger.logTransaction("FEED MONEY:", money, moneyHandler.getWallet());
     }
 
 
     /**
-     * Displays and operates the product purchase menu of the Vending Machine. Prompts user to specify a Slot Number to
+     * Displays and operates the product selection menu of the Vending Machine. Prompts user to specify a Slot Number to
      * purchase a product from and behaves accordingly based on the input provided:
      *
      * If the specified slot number does not exist in the inventory, displays an error message
@@ -114,14 +122,26 @@ public class Controller {
      * If a valid slot number is provided, AND there is product remaining, AND the current balance is not less than the
      * price, updates the current balance and product quantity to reflect the purchase. Successful purchases are logged.
      */
-    private void purchaseProductMenu() {
+    private void productSelectionMenu() {
 
         console.display(inventory.toString());
         String input = console.getString("Please select a product: ");
-        if (inventory.isValidSlotNumber(input)) {
-
-        } else {
+        if (!inventory.isValidSlotNumber(input)) {
             console.display("Invalid selection. Returning to previous menu.");
+            return;
+        }
+        if (!inventory.isInStock(input)) {
+            console.display("Product out of stock. Returning to previous menu.");
+            return;
+        }
+        if (moneyHandler.spend(inventory.costOf(input))) {
+            console.display(String.format("Now dispensing %s $%.2f", inventory.nameOf(input), inventory.costOf(input)));
+            console.display(String.format("Balance remaining: $%.2f", moneyHandler.getWallet()));
+            console.display(inventory.consume(input));
+            logger.logTransaction(inventory.nameOf(input) + " " + input, inventory.costOf(input), moneyHandler.getWallet());
+        } else {
+            console.display("Insufficient funds. Returning to previous menu.");
+            return;
         }
 
 

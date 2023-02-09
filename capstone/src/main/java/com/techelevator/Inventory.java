@@ -76,11 +76,35 @@ public class Inventory {
      * @return the price of the purchased item as a BigDecimal. Returns a BigDecimal with a value of 0 if the product
      * cannot be purchased.
      */
-    public BigDecimal purchase(String slotNumber) {
+    public String consume(String slotNumber) {
         if (inventory.containsKey(slotNumber)) {
             return inventory.get(slotNumber).vend();
         } else {
+            return "";
+        }
+    }
+
+    public BigDecimal costOf(String slotNumber) {
+        if (inventory.containsKey(slotNumber)) {
+            return inventory.get(slotNumber).getPrice();
+        } else {
             return BigDecimal.ZERO;
+        }
+    }
+
+    public String nameOf(String slotNumber) {
+        if (inventory.containsKey(slotNumber)) {
+            return inventory.get(slotNumber).getProductName();
+        } else {
+            return "";
+        }
+    }
+
+    public boolean isInStock(String slotNumber) {
+        if (inventory.containsKey(slotNumber)) {
+            return inventory.get(slotNumber).hasProductInStock();
+        } else {
+            return false;
         }
     }
 

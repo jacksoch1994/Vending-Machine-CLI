@@ -35,10 +35,11 @@ public class MoneyHandler {
      *
      * @param dollars the number of dollars to add to the current balance, as an int.
      */
-    public void feed(int dollars) {
+    public BigDecimal feed(int dollars) {
         if (dollars > 0) {
             this.wallet = this.wallet.add(new BigDecimal(dollars));
         }
+        return new BigDecimal(dollars);
     }
 
     /**

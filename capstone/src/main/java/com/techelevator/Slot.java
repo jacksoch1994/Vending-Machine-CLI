@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 /**
  * Representation of a Vending Machine slot that holds product. Provides methods that allow the user to obtain product
@@ -22,6 +23,7 @@ public class Slot {
      */
 
 
+
     public String getProductName() {
         return productName;
     }
@@ -36,6 +38,25 @@ public class Slot {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getVocalization() {
+        String vocalization = "";
+        switch (type.toLowerCase()) {
+            case "chip":
+                vocalization = "Crunch Crunch, Yum!";
+                break;
+            case "candy":
+                vocalization = "Munch Munch, Yum!";
+                break;
+            case "drink":
+                vocalization = "Glug Glug, Yum!";
+                break;
+            case "gum":
+                vocalization = "Chew Chew, Yum!";
+                break;
+        }
+        return vocalization;
     }
 
     /*
@@ -56,12 +77,12 @@ public class Slot {
      *
      * @return price of the vended item. Returns 0 if product quantity is 0.
      */
-    public BigDecimal vend() {
+    public String vend() {
         if (hasProductInStock()) {
             this.quantity--;
-            return getPrice();
+            return getVocalization();
         } else {
-            return new BigDecimal(0);
+            return "";
         }
 
     }
@@ -74,7 +95,7 @@ public class Slot {
     @Override
     public String toString() {
         return String.format("%s|%s|%s|%s", getProductName()
-        , getPrice(), getType(), getQuantity());
+                , getPrice(), getType(), getQuantity());
     }
 
     /*
@@ -85,9 +106,9 @@ public class Slot {
      * Creates a new Slot object.
      *
      * @param productName The name of the product contained in the Slot.
-     * @param price The price of 1 unit of the product in the Slot.
-     * @param type The type of product in the Slot.
-     * @param quantity The starting quantity of product in the Slot.
+     * @param price       The price of 1 unit of the product in the Slot.
+     * @param type        The type of product in the Slot.
+     * @param quantity    The starting quantity of product in the Slot.
      * @return instance of the Slot class.
      */
     public Slot(String productName, BigDecimal price, String type, int quantity) {
@@ -96,7 +117,6 @@ public class Slot {
         this.type = type;
         this.quantity = quantity;
     }
-
 
 
 }
