@@ -23,7 +23,7 @@ public class UserInterface {
     ########################################  Other Methods  ##########################################
      */
 
-    public void prompt(String message) {
+    public void display(String message) {
         System.out.println(message);
     }
 

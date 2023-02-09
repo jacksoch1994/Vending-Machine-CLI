@@ -5,12 +5,18 @@ public class VendingMachineCLI {
 	public void run() {
 		// entry point for the vending machine
 		Inventory inventory = new Inventory();
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
+		inventory.purchase("A1");
 
-		for (String key : inventory.getInventory().keySet()) {
-			System.out.println(inventory.getInventory().get(key));
-
-
-		}
+		System.out.println(inventory);
 	}
 
 	public static void main(String[] args) {

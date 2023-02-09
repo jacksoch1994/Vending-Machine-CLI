@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-public class SlotTests {
+public class SlotTest {
 
     @Test
     public void vend_should_return_price_when_quantity_above_zero() {
@@ -15,9 +15,16 @@ public class SlotTests {
 
     @Test
     public void vend_should_decrement_quantity() {
-        Slot slot = new Slot( "Candy", new BigDecimal(5), "candy", 5);
+        Slot slot = new Slot( "Candy", new BigDecimal(5), "candy", 1);
         slot.vend();
-        Assert.assertEquals(4, slot.getQuantity());
+        Assert.assertEquals(0, slot.getQuantity());
+    }
+
+    @Test
+    public void vend_should_return_a_price_of_zero_if_no_product_to_vend() {
+        Slot slot = new Slot( "Candy", new BigDecimal(5), "candy", 0);
+        slot.vend();
+        Assert.assertEquals(new BigDecimal(0), slot.vend());
     }
 
 
