@@ -70,11 +70,11 @@ public class Inventory {
     }
     
     /**
-     * Returns a boolean value indicating if there are any products remaining in the Slot.
+     * Decrements the quantity of the product in the slot by 1. Returns a "vocalization" based on the type of product in
+     * the slot.
      *
-     * @param slotNumber The slot number of the item to purchase from as a String.
-     * @return the price of the purchased item as a BigDecimal. Returns a BigDecimal with a value of 0 if the product
-     * cannot be purchased.
+     * @param slotNumber The slot number of the item to consume as a String.
+     * @return the vocalization associated with the product's type
      */
     public String consume(String slotNumber) {
         if (inventory.containsKey(slotNumber)) {
@@ -84,6 +84,13 @@ public class Inventory {
         }
     }
 
+    /**
+     * Returns the price of the item in the specified slot as a BigDecimal
+     *
+     * @param slotNumber The slot number of the item to obtain the price of as a String.
+     * @return the price of the purchased item as a BigDecimal. Returns a BigDecimal with a value of 0 if the product
+     * cannot be purchased.
+     */
     public BigDecimal costOf(String slotNumber) {
         if (inventory.containsKey(slotNumber)) {
             return inventory.get(slotNumber).getPrice();
@@ -92,6 +99,12 @@ public class Inventory {
         }
     }
 
+    /**
+     * Returns the name of the product in the specified slot as a String.
+     *
+     * @param slotNumber The slot number of the item to view the name of as a String.
+     * @return the name of the product in the specified slot
+     */
     public String nameOf(String slotNumber) {
         if (inventory.containsKey(slotNumber)) {
             return inventory.get(slotNumber).getProductName();
@@ -100,6 +113,12 @@ public class Inventory {
         }
     }
 
+    /**
+     * Returns a boolean value indicating if there are any products remaining in the Slot.
+     *
+     * @param slotNumber The slot number of the item to check as a String.
+     * @return true if the slot has products remaining, false otherwise
+     */
     public boolean isInStock(String slotNumber) {
         if (inventory.containsKey(slotNumber)) {
             return inventory.get(slotNumber).hasProductInStock();

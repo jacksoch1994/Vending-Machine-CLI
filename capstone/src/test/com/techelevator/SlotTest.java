@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 public class SlotTest {
 
     @Test
-    public void vend_should_return_price_when_quantity_above_zero() {
+    public void vend_should_return_vocalization_when_quantity_above_zero() {
         Slot slot = new Slot( "Candy", new BigDecimal(5), "candy", 5);
-        Assert.assertEquals(new BigDecimal(5), slot.vend());
+        Assert.assertEquals(slot.getVocalization(), slot.vend());
     }
 
     @Test
@@ -21,10 +21,10 @@ public class SlotTest {
     }
 
     @Test
-    public void vend_should_return_a_price_of_zero_if_no_product_to_vend() {
+    public void vend_should_return_an_empty_string_if_no_product_to_vend() {
         Slot slot = new Slot( "Candy", new BigDecimal(5), "candy", 0);
         slot.vend();
-        Assert.assertEquals(new BigDecimal(0), slot.vend());
+        Assert.assertEquals("", slot.vend());
     }
 
 

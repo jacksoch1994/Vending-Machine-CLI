@@ -16,7 +16,7 @@ public class LoggerTest {
     @Test
     public void logger_should_record_transactions_to_output_file() {
         Logger logger = new Logger();
-        logger.logTransaction("FEED MONEY", new BigDecimal("5.00"), new BigDecimal("2.00"));
+        logger.logTransaction("FEED MONEY:", new BigDecimal("5.00"), new BigDecimal("2.00"));
 
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
@@ -30,8 +30,8 @@ public class LoggerTest {
     @Test
     public void logger_should_append_transactions_to_existing_transactions() {
         Logger logger = new Logger();
-        logger.logTransaction("FEED MONEY", new BigDecimal("5.00"), new BigDecimal("2.00"));
-        logger.logTransaction("FEED MONEY", new BigDecimal("5.00"), new BigDecimal("2.00"));
+        logger.logTransaction("FEED MONEY:", new BigDecimal("5.00"), new BigDecimal("2.00"));
+        logger.logTransaction("FEED MONEY:", new BigDecimal("5.00"), new BigDecimal("2.00"));
 
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
