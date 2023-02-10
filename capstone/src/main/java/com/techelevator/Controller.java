@@ -1,6 +1,5 @@
 package com.techelevator;
 
-import java.io.FileOutputStream;
 import java.math.BigDecimal;
 
 /**
@@ -32,7 +31,8 @@ public class Controller {
      */
 
     /**
-     * Starts the operation of the Vending Machine Controller.
+     * Starts the operation of the Vending Machine Controller. Displays the machine's title card to the console and
+     * then starts the main menu.
      */
     public void start() {
         console.printTitleCard();
@@ -148,12 +148,19 @@ public class Controller {
             
         } else {
             console.display("Insufficient funds. Returning to previous menu.");
-            return;
         }
 
     }
 
-    public void dispenseProduct(String input) {
+
+    /**
+     * Displays information to the console related to the purchased product. Prints the item being dispensed, the total
+     * balance remaining in the current balance, and the items "vocalization". Also logs the Transaction to the log
+     * file.
+     *
+     * @param input the slot number of item to be dispensed
+     */
+    private void dispenseProduct(String input) {
         console.display(String.format("Now dispensing %s $%.2f", inventory.nameOf(input), inventory.costOf(input)));
         console.display(String.format("Balance remaining: $%.2f", moneyHandler.getWallet()));
         console.display(inventory.consume(input));

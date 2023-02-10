@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
-import java.util.Locale;
 
 /**
  * Representation of a Vending Machine slot that holds product. Provides methods that allow the user to obtain product
@@ -109,7 +108,6 @@ public class Slot {
      * @param price       The price of 1 unit of the product in the Slot.
      * @param type        The type of product in the Slot.
      * @param quantity    The starting quantity of product in the Slot.
-     * @return instance of the Slot class.
      */
     public Slot(String productName, BigDecimal price, String type, int quantity) {
         this.productName = productName;

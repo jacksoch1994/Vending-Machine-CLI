@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -33,15 +32,6 @@ public class Inventory {
      */
 
     private Map<String, Slot> inventory = new TreeMap<>();
-
-
-    /*
-    ######################################## Getter Methods ##########################################
-     */
-
-    public Map<String, Slot> getInventory() {
-        return inventory;
-    }
 
 
     /*
@@ -169,6 +159,11 @@ public class Inventory {
         return output.toString();
     }
 
+    /**
+     * Generates a String containing a Sales Report based off of the current amount of product remaining in each slot.
+     *
+     * @return returns a String representative of all sales that have been made since the machine was started
+     */
     public String salesReport() {
         StringBuilder output = new StringBuilder();
         for (String key : inventory.keySet()) {

@@ -75,14 +75,16 @@ public class MoneyHandler {
         int dimes = (changeInCents % 25) / 10;
         int nickels = ((changeInCents % 25) % 10) / 5;
 
-        String quarterOutput = (quarters > 0) ? quarters + " Quarter(s)" : "";
-        String dimesOutput = (quarters > 0) ? dimes + " Dime(s)" : "";
-        String nickelsOutput = (quarters > 0) ? nickels + " Nickel(s)" : "";
+        //If the number of the coin is zero, save an empty String, otherwise create a String to represent the number of
+        //that kind of coin.
+        String quarterOutput = (quarters > 0) ? quarters + " Quarter(s) " : "";
+        String dimesOutput = (dimes > 0) ? dimes + " Dime(s) " : "";
+        String nickelsOutput = (nickels > 0) ? nickels + " Nickel(s) " : "";
 
-        String change = (quarters + dimes + nickels == 0) ? "No change to dispense!" : String.format("Your change: %s %s %s",
+        //If there are no coins to dispense, return appropriate message. Otherwise display a formatted string including
+        //count amounts
+        return (quarters + dimes + nickels == 0) ? "No change to dispense!" : String.format("Your change: %s%s%s",
                 quarterOutput, dimesOutput, nickelsOutput);
-
-        return change;
     }
 
 }

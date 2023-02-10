@@ -33,26 +33,42 @@ public class Logger {
      */
     public void logTransaction(String operation, BigDecimal moneyTendered,
                                BigDecimal currentBalance) {
+        //If there was no movement of money in the transaction, do not write to file
+        if (moneyTendered.equals(BigDecimal.ZERO)) return;
+
+
         try (final FileOutputStream out = new FileOutputStream(LOG_FILE, true);
              PrintWriter writer = new PrintWriter(out)
         ) {
+            //Get and format current date and time
             LocalDateTime dateTime = LocalDateTime.now();
             DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a");
             String formattedDateTime = dateTime.format(myFormat);
+
+            //Write transaction to file in format: [Date] [Time] [Operation] [moneyTendered] [currentBalance]
             writer.printf("%s %s $%.2f $%.2f\n", formattedDateTime, operation, moneyTendered, currentBalance);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. Transaction not logged!");
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("Something went wrong trying to write to file. Transaction not logged!");
         }
     }
 
+    /**
+     * Creates a new file and writes the current status of all sales to a file. Takes a String representing the sales
+     * report, and a BigDecimal representing the total sales made since the machine was turned on.
+     *
+     * @param report the sales report as a String
+     * @param totalSales the total sales as a BigDecimal
+     */
     public void writeSalesReport(String report, BigDecimal totalSales) {
 
+        //Get and format current date and time
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("ddMMMyyyy HH'h'mm'm'ss's'");
 
-
+        //Format file name for output
         String fileName = String.format("Sales Report %s.txt", dateTime.format(format));
-
         File sales = new File(fileName);
 
         try (final FileOutputStream out = new FileOutputStream(sales, true);
@@ -63,11 +79,10 @@ public class Logger {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("WTF");
+            System.out.println("File not found. Sales report generation failed.");
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("Something went wrong trying to write to file. Sales report generation failed.");
         }
-
 
     }
 
@@ -78,7 +93,6 @@ public class Logger {
     /**
      * Creates a new Slot object. Deletes the log file if it already exists.
      *
-     * @return instance of the Logger class.
      */
     public Logger() {
         if (LOG_FILE.exists()) {

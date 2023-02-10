@@ -21,19 +21,30 @@ public class UserInterface {
     ########################################  Other Methods  ##########################################
      */
 
+    /**
+     * Reads from TitleCard.txt and writes the contents to a String stored as a Class attribute.
+     */
     private void loadTitleCard() {
+
         StringBuilder stringBuilder = new StringBuilder();
+
         try (Scanner scanner = new Scanner(new File("TitleCard.txt"))) {
+
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                stringBuilder.append(line + "\n");
+                String line = scanner.nextLine() + "\n";
+                stringBuilder.append(line);
             }
+            titleCard = stringBuilder.toString();
+
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            titleCard = "";
         }
-        titleCard = stringBuilder.toString();
+
     }
 
+    /**
+     * Prints the Vending Machine's title card to the console.
+     */
     public void printTitleCard() {
         System.out.println(titleCard);
     }
@@ -86,6 +97,9 @@ public class UserInterface {
      * integer, or does not match the number of an option, displays an error message and re-displays the prompt until a
      * valid value is provided. The method will not display the header if provided an empty String.
      *
+     * If a string in the provided String[] starts with a "-", it will not be displayed to the screen but the option
+     * number is still selectable.
+     *
      * @param options a String[] containing each option that the user can select
      * @param header the header to print before the presented user options
      * @return user input as an int.
@@ -128,6 +142,9 @@ public class UserInterface {
      * these values, obtains the user input. If the provided value is not a valid integer, or does not match the number
      * of an option, displays an error message and re-displays the prompt until a valid value is provided.
      *
+     * If a string in the provided String[] starts with a "-", it will not be displayed to the screen but the option
+     * number is still selectable.
+     *
      * @param options a String[] containing each option that the user can select
      * @return user input as an int.
      */
@@ -135,6 +152,9 @@ public class UserInterface {
         return this.getMenuSelection(options, "");
     }
 
+    /**
+     * Prints a "banner" of asterisks to the console.
+     */
     public void banner() {
         System.out.println("\n*****************************************************\n");
     }
@@ -156,6 +176,7 @@ public class UserInterface {
         }
         return true;
     }
+
 
     public UserInterface() {
         loadTitleCard();
