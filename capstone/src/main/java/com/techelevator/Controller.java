@@ -16,6 +16,7 @@ public class Controller {
     final int FIRST_OPTION = 1;
     final int SECOND_OPTION = 2;
     final int THIRD_OPTION = 3;
+    final int SECRET_OPTION = 4;
 
     /*
     ########################################   Attributes   ##########################################
@@ -44,11 +45,11 @@ public class Controller {
     private void mainMenu() {
         String[] options = {"Display Vending Machine Items",
         "Purchase",
-        "Exit"};
+        "Exit",
+        "-Print Sales Report"};
 
         outer:
         while (true) {
-
             switch (console.getMenuSelection(options)) {
                 case FIRST_OPTION:
                     console.display(inventory.toString());
@@ -57,9 +58,13 @@ public class Controller {
                     purchaseMenu();
                     break;
                 case THIRD_OPTION:
-                    shutDown();
                     break outer;
+                case SECRET_OPTION:
+                    logger.writeSalesReport(inventory.salesReport(), moneyHandler.getTotalSales());
+                    console.display("Generated Sales Report!");
+                    break;
             }
+            console.banner();
         }
     }
 
@@ -91,6 +96,7 @@ public class Controller {
                     logger.logTransaction("GIVE CHANGE:", change, moneyHandler.getWallet());
                     break outer;
             }
+            console.banner();
         }
     }
 
@@ -126,6 +132,7 @@ public class Controller {
 
         console.display(inventory.toString());
         String input = console.getString("Please select a product: ");
+        
         if (!inventory.isValidSlotNumber(input)) {
             console.display("Invalid selection. Returning to previous menu.");
             return;
@@ -135,23 +142,20 @@ public class Controller {
             return;
         }
         if (moneyHandler.spend(inventory.costOf(input))) {
-            console.display(String.format("Now dispensing %s $%.2f", inventory.nameOf(input), inventory.costOf(input)));
-            console.display(String.format("Balance remaining: $%.2f", moneyHandler.getWallet()));
-            console.display(inventory.consume(input));
-            logger.logTransaction(inventory.nameOf(input) + " " + input, inventory.costOf(input), moneyHandler.getWallet());
+            dispenseProduct(input);
+            
         } else {
             console.display("Insufficient funds. Returning to previous menu.");
             return;
         }
 
-
     }
 
-    /**
-     * Method to be called when machine is finished running. Outputs the total product sales to a file.
-     */
-    private void shutDown() {
-
+    public void dispenseProduct(String input) {
+        console.display(String.format("Now dispensing %s $%.2f", inventory.nameOf(input), inventory.costOf(input)));
+        console.display(String.format("Balance remaining: $%.2f", moneyHandler.getWallet()));
+        console.display(inventory.consume(input));
+        logger.logTransaction(inventory.nameOf(input) + " " + input, inventory.costOf(input), moneyHandler.getWallet());
     }
     
 }

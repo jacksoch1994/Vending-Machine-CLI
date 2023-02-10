@@ -45,6 +45,32 @@ public class Logger {
         }
     }
 
+    public void writeSalesReport(String report, BigDecimal totalSales) {
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("ddMMMyyyy HH'h'mm'm'ss's'");
+
+
+        String fileName = String.format("Sales Report %s.txt", dateTime.format(format));
+
+        File sales = new File(fileName);
+
+        try (final FileOutputStream out = new FileOutputStream(sales, true);
+             PrintWriter writer = new PrintWriter(out)) {
+
+            writer.println(report);
+            writer.printf("\n\n**TOTAL SALES** $%.2f", totalSales);
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println("WTF");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+
+
+    }
+
     /*
     ########################################   Constructor   ##########################################
      */

@@ -169,6 +169,20 @@ public class Inventory {
         return output.toString();
     }
 
+    public String salesReport() {
+        StringBuilder output = new StringBuilder();
+        for (String key : inventory.keySet()) {
+
+            String name = nameOf(key);
+            int quantityRemaining = inventory.get(key).getQuantity();
+
+            String line = String.format("%s|%d\n", name, SLOT_CAPACITY - quantityRemaining);
+            output.append(line);
+        }
+        return output.toString();
+    }
+
+
 
 
     /*

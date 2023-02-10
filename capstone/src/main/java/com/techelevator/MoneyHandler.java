@@ -79,7 +79,7 @@ public class MoneyHandler {
         String dimesOutput = (quarters > 0) ? dimes + " Dime(s)" : "";
         String nickelsOutput = (quarters > 0) ? nickels + " Nickel(s)" : "";
 
-        String change = (quarters + dimes + nickels == 0) ? "" : String.format("Your change: %s %s %s",
+        String change = (quarters + dimes + nickels == 0) ? "No change to dispense!" : String.format("Your change: %s %s %s",
                 quarterOutput, dimesOutput, nickelsOutput);
 
         return change;

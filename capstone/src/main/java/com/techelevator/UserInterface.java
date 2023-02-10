@@ -47,15 +47,16 @@ public class UserInterface {
      */
     public int getPositiveInteger(String prompt) {
         while (true) {
-            System.out.println(prompt);
+            System.out.print(prompt);
             String userValue = userInput.nextLine();
             if (isValidIntegerInput(userValue) && Integer.parseInt(userValue) >= 0) {
-                banner();
                 return Integer.parseInt(userValue);
 
             }
 
-            System.out.println("\nInvalid input. Please provide a positive integer value.\n");
+            System.out.println("\nInvalid input. Please provide a positive integer value.");
+            banner();
+
         }
     }
 
@@ -72,19 +73,18 @@ public class UserInterface {
     public int getMenuSelection(String[] options, String header) {
         while (true) {
 
-            banner();
-
             if (header.length() > 0) {
                 System.out.println(header + "\n");
             }
 
             for (int i = 0; i < options.length; i++) {
+                if (options[i].length() > 0 && options[i].startsWith("-")) {
+                    continue;
+                }
                 System.out.printf("(%d) %s\n", i + 1, options[i]);
             }
 
-            banner();
-
-            System.out.print("Please enter your selection from the options above: ");
+            System.out.print("\nPlease enter your selection from the options above: ");
 
             String selection = userInput.nextLine();
             if (isValidIntegerInput(selection)) {
@@ -95,7 +95,9 @@ public class UserInterface {
                 }
             }
 
-            System.out.println("\nInvalid selection. Please try again.\n");
+            System.out.println("\nInvalid selection. Please try again.");
+
+            banner();
         }
     }
 
