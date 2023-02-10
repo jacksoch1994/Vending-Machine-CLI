@@ -1,10 +1,12 @@
 package com.techelevator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
  * UserInterface provides methods for displaying information to the console and returning valid input from the user.
- * Contain methods that will force the user to continue providing inputs until a valid input is recieved.
+ * Contain methods that will force the user to continue providing inputs until a valid input is received.
  */
 public class UserInterface {
 
@@ -13,10 +15,28 @@ public class UserInterface {
      */
 
     private Scanner userInput = new Scanner(System.in);
+    private String titleCard = "";
 
     /*
     ########################################  Other Methods  ##########################################
      */
+
+    private void loadTitleCard() {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (Scanner scanner = new Scanner(new File("TitleCard.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                stringBuilder.append(line + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        titleCard = stringBuilder.toString();
+    }
+
+    public void printTitleCard() {
+        System.out.println(titleCard);
+    }
 
     /**
      * Prints the provided string to the console.
@@ -53,8 +73,8 @@ public class UserInterface {
                 return Integer.parseInt(userValue);
 
             }
-
-            System.out.println("\nInvalid input. Please provide a positive integer value.");
+            banner();
+            System.out.println("Invalid input. Please provide a positive integer value.");
             banner();
 
         }
@@ -95,7 +115,9 @@ public class UserInterface {
                 }
             }
 
-            System.out.println("\nInvalid selection. Please try again.");
+            banner();
+
+            System.out.println("Invalid selection. Please try again.");
 
             banner();
         }
@@ -134,4 +156,9 @@ public class UserInterface {
         }
         return true;
     }
+
+    public UserInterface() {
+        loadTitleCard();
+    }
+
 }

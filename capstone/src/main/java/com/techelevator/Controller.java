@@ -35,6 +35,7 @@ public class Controller {
      * Starts the operation of the Vending Machine Controller.
      */
     public void start() {
+        console.printTitleCard();
         mainMenu();
     }
 
@@ -132,6 +133,7 @@ public class Controller {
 
         console.display(inventory.toString());
         String input = console.getString("Please select a product: ");
+        console.banner();
         
         if (!inventory.isValidSlotNumber(input)) {
             console.display("Invalid selection. Returning to previous menu.");
